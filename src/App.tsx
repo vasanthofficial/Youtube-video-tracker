@@ -25,10 +25,9 @@ function loadFromStorage() {
 }
 
 function saveToStorage(data) {
-  try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-  } catch {}
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
 }
+
 export default function App() {
   const [data, setData] = useState({ uploads: [] });
   const [input, setInput] = useState("");
@@ -38,11 +37,10 @@ export default function App() {
   const [importing, setImporting] = useState(false);
   const fileInputRef = useRef();
   useEffect(() => {
-    loadFromStorage().then((d) => {
-      setData(d);
-      setLoaded(true);
-    });
+    setData(loadFromStorage());
+    setLoaded(true);
   }, []);
+
   useEffect(() => {
     if (loaded) saveToStorage(data);
   }, [data, loaded]);
